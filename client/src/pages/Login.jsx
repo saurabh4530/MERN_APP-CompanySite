@@ -1,19 +1,50 @@
+//@ts-nocheck
 import React, { useState } from "react";
+import {useNavigate } from "react-router-dom";
+
 
 function Login() {
   const [user, setUser] = useState({
     email: "",
-    password: ""
+    password: "",
   });
+  const navigate=useNavigate()
 
   const handleInput = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("form submitted");
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      console.log(response, "from login");
+      if (response.ok) {
+        alert("login successfully" ,response)
+        const res_data=await response.json();
+
+        
+
+        setUser({
+          email: "",
+          password: ""
+        });
+        navigate("/")
+      }else{
+        alert("Invalid Credentials")
+        console.log("Invalid Credentials");
+      }
+    } catch (error) {
+      console.error();
+    }
   };
 
   return (

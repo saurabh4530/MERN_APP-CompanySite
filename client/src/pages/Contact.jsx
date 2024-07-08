@@ -36,7 +36,7 @@ import { useState } from "react";
         {/* contact page main  */}
         <div className="container grid grid-two-cols">
           <div className="">
-            <img  src="https://t3.ftcdn.net/jpg/04/81/31/66/360_F_481316696_cPzBNRfqMpbq2cx2soWytWAjhzZYByS4.jpg" alt="we are always ready to help" 
+            <img  src="https://img.freepik.com/premium-vector/man-working-computer-with-man-his-head-word-no-it_1113671-162.jpg" 
          width="500"
                 height="500"/>
           </div>

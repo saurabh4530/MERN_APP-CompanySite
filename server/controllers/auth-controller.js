@@ -36,58 +36,44 @@ const register = async (req, res) => {
     const userCreated = await User.create({
       username,
       email,
-      phone, 
-      password   
+      phone,
+      password,
     });
 
     res.status(201).json({
-       msg: "userCreated successfully ",token :await userCreated.generateToken(),
+      msg: "userCreated successfully ",
+      token: await userCreated.generateToken(),
 
-      userId:userCreated._id.toString()
+      userId: userCreated._id.toString(),
     });
   } catch (error) {
     res.status(500).json({ msg: "internal server Error " });
-  } 
+  }
 };
 //!login logic
-const login=async (req,res)=>{
-  try { 
-    const {email,password}=req.body;
-    const userExist=await User.findOne({email});
-    if(!userExist){
-      return res.status(400).json({msg:"Invalid Credentials"} );
-
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const userExist = await User.findOne({ email });
+    if (!userExist) {
+      return res.status(400).json({ msg: "Invalid Credentials" });
     }
     // const user=await bcrypt .compare(password,userExist.password);
-    const user=await userExist.comparePassword(password)
-    
+    const user = await userExist.comparePassword(password);
 
-    if(user){
+    if (user) {
       res.status(200).json({
-      msg: "login successfully ",
-       token :await userExist.generateToken(),
+        msg: "login successfully ",
+        token: await userExist.generateToken(),
 
-     userId:userExist._id.toString()
-   });
-  } 
-  else{
-     res.status(401).json({msg:"Invalid email or password"} );
-
-
-  }
-
-
-
-   
-  
-          
-    
+        userId: userExist._id.toString(),
+      });
+    } else {
+      res.status(401).json({ msg: "Invalid email or password" });
+    }
   } catch (error) {
-    res.status(500).json( "internal server Error "  );
-
-    
+    res.status(500).json("internal server Error ");
   }
-}
+};
 
-module.exports = { home, register ,login};
- 
+module.exports = { home, register, login };
