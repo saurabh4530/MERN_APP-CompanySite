@@ -76,4 +76,16 @@ const login = async (req, res) => {
   }
 };
 
+//user logic:to send user data
+const user  = async (req, res) => {
+  try {
+    const userData=req.user
+    console.log(userData);
+
+    
+  } catch (error) {
+    console.log("error from route" ,error);
+    
+  }
+}
 module.exports = { home, register, login };

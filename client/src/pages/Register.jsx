@@ -1,7 +1,9 @@
 //@ts-nocheck
 import React, { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../store/auth";
+
 
 function Register() {
   const [user, setUser] = useState({
@@ -11,6 +13,7 @@ function Register() {
     password: "",
   });
   const navigate = useNavigate();
+  const {storetokenInLS}=useAuth()
 
   const handleInput = (e) => {
     let { name, value } = e.target;

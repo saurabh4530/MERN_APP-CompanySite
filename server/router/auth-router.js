@@ -11,5 +11,6 @@ router
   .post(validate(signupSchema), authcontrollers.register);
 
 router.route("/login").post(authcontrollers.login);
+router.route("/user").get(authcontrollers.user);
 
 module.exports = router;

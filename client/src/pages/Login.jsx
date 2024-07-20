@@ -1,14 +1,15 @@
 //@ts-nocheck
 import React, { useState } from "react";
-import {useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../store/auth";
 
 function Login() {
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-  const navigate=useNavigate()
+  const navigate = useNavigate();
+  const {storetokenInLS} = useAuth();
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -28,18 +29,17 @@ function Login() {
       });
       console.log(response, "from login");
       if (response.ok) {
-        alert("login successfully" ,response)
-        const res_data=await response.json();
-
-        
+        alert("login successfully", response);
+        const res_data = await response.json();
+        storetokenInLS(res_data.token);
 
         setUser({
           email: "",
-          password: ""
+          password: "",
         });
-        navigate("/")
-      }else{
-        alert("Invalid Credentials")
+        navigate("/");
+      } else {
+        alert("Invalid Credentials");
         console.log("Invalid Credentials");
       }
     } catch (error) {
